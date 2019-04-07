@@ -12,6 +12,8 @@ magnitude spectrum of x.
 EXAMPLE: If you run your function using x = np.array([1, 2, 3, 4]), the function should return the following 
 numpy array magX: [array([10.0, 2.82842712, 2.0, 2.82842712])
 """
+
+
 def genMagSpec(x):
     """
     Input:
@@ -22,3 +24,8 @@ def genMagSpec(x):
                              (length N)
     """
     ## Your code here
+
+
+if __name__ == '__main__':
+    x = np.array([1, 2, 3, 4])
+    print(genMagSpec(x))

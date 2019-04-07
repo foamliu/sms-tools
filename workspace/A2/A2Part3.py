@@ -1,3 +1,5 @@
+from math import pi
+
 import numpy as np
 
 """
@@ -17,6 +19,8 @@ Note that you might not get an exact 0 in the output because of the small numeri
 limited precision of the data in your computer. Usually these errors are of the order 1e-15 depending
 on your machine.
 """
+
+
 def DFT(x):
     """
     Input:
@@ -26,3 +30,16 @@ def DFT(x):
         X (numpy array) = The N point DFT of the input sequence x
     """
     ## Your code here
+    N = x.shape[0]
+    X = np.empty((N,), np.complex)
+    for k in range(N):
+        sum = 0
+        for n in range(N):
+            sum += x[n] * np.exp(-1j * 2 * pi * k * n / N)
+        X[k] = sum
+    return X
+
+
+if __name__ == '__main__':
+    x = np.array([1, 2, 3, 4])
+    print(DFT(x))

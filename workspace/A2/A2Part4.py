@@ -1,3 +1,5 @@
+from math import pi
+
 import numpy as np
 
 """
@@ -24,6 +26,8 @@ In addition, an interesting test of the IDFT function can be done by providing t
 a sequence as the input to the IDFT. See if you get back the original time domain sequence.
 
 """
+
+
 def IDFT(X):
     """
     Input:
@@ -33,3 +37,16 @@ def IDFT(X):
         x (numpy array) = The N point IDFT of the frequency spectrum X
     """
     ## Your code here
+    N = X.shape[0]
+    x = np.empty((N,), np.complex)
+    for n in range(N):
+        sum = 0
+        for k in range(N):
+            sum += X[k] * np.exp(1j * 2 * pi * k * n / N) / N
+        x[n] = sum
+    return x
+
+
+if __name__ == '__main__':
+    X = np.array([1, 1, 1, 1])
+    print(IDFT(X))
