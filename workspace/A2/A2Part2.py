@@ -1,5 +1,5 @@
+from math import pi
 import numpy as np
-
 """
 A2-Part-2: Generate a complex sinusoid 
 
@@ -16,6 +16,8 @@ EXAMPLE: If you run your function using N=5 and k=1, the function should return 
 array([ 1.0 + 0.j,  0.30901699 - 0.95105652j, -0.80901699 - 0.58778525j, -0.80901699 + 0.58778525j, 
 0.30901699 + 0.95105652j])
 """
+
+
 def genComplexSine(k, N):
     """
     Inputs:
@@ -26,3 +28,16 @@ def genComplexSine(k, N):
         cSine (numpy array) = The generated complex sinusoid (length N)
     """
     ## Your code here
+    A = 1.0
+    w = 2 * pi * k / N
+    cSine = np.empty((N,), dtype=np.complex)
+    phi = 0.0
+    fs = 1.0
+    T = 1/fs
+    for i in range(N):
+        cSine[i] = A * np.exp(-1j*(w*i*T+phi))
+    return cSine
+
+
+if __name__ == '__main__':
+    print(genComplexSine(k=1, N=5))
