@@ -1,5 +1,7 @@
 from math import pi
+
 import numpy as np
+
 """
 A2-Part-2: Generate a complex sinusoid 
 
@@ -33,9 +35,9 @@ def genComplexSine(k, N):
     cSine = np.empty((N,), dtype=np.complex)
     phi = 0.0
     fs = 1.0
-    T = 1/fs
+    T = 1 / fs
     for i in range(N):
-        cSine[i] = A * np.exp(-1j*(w*i*T+phi))
+        cSine[i] = A * np.exp(-1j * (w * i * T + phi))
     return cSine
 
 
