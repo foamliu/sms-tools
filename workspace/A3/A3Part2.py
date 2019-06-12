@@ -1,5 +1,5 @@
-﻿from scipy.fftpack import fft
-import numpy as np
+﻿import numpy as np
+from scipy.fftpack import fft
 
 """
 A3-Part-2: Optimal zero-padding
@@ -44,6 +44,8 @@ maximum value at bin index 6 corresponding to the frequency of 250 Hz. The outpu
 121 samples in length. 
 
 """
+
+
 def optimalZeropad(x, fs, f):
     """
     Inputs:
@@ -56,3 +58,22 @@ def optimalZeropad(x, fs, f):
                         x appropriately (zero-padding length to be computed). mX is (N/2)+1 samples long
     """
     ## Your code here
+    M = x.shape[0]
+    num_samples = fs / f
+    N = np.ceil(M / num_samples) * num_samples
+    x = np.pad(x, (0, int(N - M)), mode='constant')
+
+    X = fft(x)
+    mX = X[:int(N / 2) + 1]
+    mX = 20 * np.log10(mX)
+    return mX
+
+
+if __name__ == "__main__":
+    x = np.ones((25,))
+    result = optimalZeropad(x, fs=1000, f=100)
+    print(result.shape)
+
+    x = np.ones((210,))
+    result = optimalZeropad(x, fs=10000, f=250)
+    print(result.shape)

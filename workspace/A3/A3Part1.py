@@ -1,6 +1,7 @@
-﻿from scipy.fftpack import fft
+﻿from math import gcd
+
 import numpy as np
-from fractions import gcd
+from scipy.fftpack import fft
 
 """
 A3-Part-1: Minimize energy spread in DFT of sinusoids
@@ -48,6 +49,7 @@ and 8 (corresponding to the frequency values of 300 and 800 Hz, respectively). Y
 signal x by generating and adding two sinusoids of the given frequencies.
 """
 
+
 def minimizeEnergySpreadDFT(x, fs, f1, f2):
     """
     Inputs:
@@ -61,3 +63,22 @@ def minimizeEnergySpreadDFT(x, fs, f1, f2):
                            mX is (M/2)+1 samples long (M is to be computed)
     """
     ## Your code here
+    p1 = int(fs / f1)
+    p2 = int(fs / f2)
+    g = gcd(p1, p2)
+    M = int(p1 * p2 / g)
+
+    X = fft(x)
+    mX = X[:int(M / 2) + 1]
+    mX = 20 * np.log10(mX)
+    return mX
+
+
+if __name__ == "__main__":
+    x = np.ones((250,))
+    result = minimizeEnergySpreadDFT(x, fs=10000, f1=80, f2=200)
+    print(result.shape)
+
+    x = np.ones((480,))
+    result = minimizeEnergySpreadDFT(x, fs=48000, f1=300, f2=800)
+    print(result.shape)
